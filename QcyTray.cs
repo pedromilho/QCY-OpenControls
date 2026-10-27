@@ -53,7 +53,7 @@ public sealed partial class QcyTray
             if(!closed) { e.Cancel=true; window.Hide(); }
         };
         icon=HeadphoneIcon();
-        tray=new Forms.NotifyIcon { Icon=icon,Text="QCY Controls · Controles",Visible=true };
+        tray=new Forms.NotifyIcon { Icon=icon,Text="QCY OpenControls · Controles",Visible=true };
         var menu=new Forms.ContextMenuStrip();
         menu.Items.Add("Abrir controles",null,delegate { ShowPanel(); });
         menu.Items.Add("Sair",null,delegate { Exit(); });

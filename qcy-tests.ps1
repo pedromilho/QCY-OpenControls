@@ -1,4 +1,4 @@
-param([string]$Assembly = "$PSScriptRoot\QCY Controls.exe")
+param([string]$Assembly = "$PSScriptRoot\QCY OpenControls.exe")
 $ErrorActionPreference='Stop'
 [void][Reflection.Assembly]::LoadFrom($Assembly)
 function Assert($value,$message) { if (-not $value) { throw $message } }
