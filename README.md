@@ -28,3 +28,7 @@ powershell -ExecutionPolicy Bypass -File .\qcy-tests.ps1
 ```
 
 Build the installer with `build-installer.ps1`. Run `ui-tests.ps1` in Windows PowerShell STA mode to check language switching and minimize behavior.
+
+## License
+
+[MIT](LICENSE) © 2026 pedromilho.

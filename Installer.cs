@@ -15,7 +15,7 @@ internal static class Installer
     const string Product = "QCY OpenControls";
     const string RegistryPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall\QCYOpenControls";
     static readonly string InstallDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "QCYOpenControls");
-    static readonly string[] Payload = { "QCY OpenControls.exe", "README.md" };
+    static readonly string[] Payload = { "QCY OpenControls.exe", "README.md", "LICENSE" };
     static string Executable { get { return Assembly.GetExecutingAssembly().Location; } }
 
     [STAThread]
@@ -113,7 +113,7 @@ internal static class Installer
         using (RegistryKey key = Registry.CurrentUser.CreateSubKey(registry))
         {
             key.SetValue("DisplayName", Product);
-            key.SetValue("DisplayVersion", "1.0.0");
+            key.SetValue("DisplayVersion", "1.0.1");
             key.SetValue("InstallLocation", directory);
             key.SetValue("DisplayIcon", target);
             key.SetValue("UninstallString", "\"" + uninstaller + "\" --uninstall");
@@ -213,7 +213,7 @@ internal static class Installer
             Font = new Font("Segoe UI", 10);
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(new Label { Text = Product, Font = new Font("Segoe UI", 23, FontStyle.Bold), Location = new Point(25, 22), AutoSize = true });
-            Controls.Add(new Label { Text = "QCY H3 Pro controls · v1.0.0", Location = new Point(30, 75), AutoSize = true });
+            Controls.Add(new Label { Text = "QCY H3 Pro controls · v1.0.1", Location = new Point(30, 75), AutoSize = true });
             Controls.Add(new Label { Text = "Instalação para seu usuário:\n" + InstallDirectory, Location = new Point(30, 112), Size = new Size(470, 52), AutoEllipsis = true });
             Controls.Add(desktop); Controls.Add(launch); Controls.Add(status); Controls.Add(install);
             AcceptButton = install;
