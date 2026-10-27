@@ -17,7 +17,7 @@ public sealed partial class QcyTray
     bool closed;
     readonly Application app;
     T Get<T>(string name) where T : class { return window.FindName(name) as T; }
-    void Text(string name,string value) { Get<TextBlock>(name).Text=value; }
+    void Text(string name,string value) { var block=Get<TextBlock>(name); originalText[block]=value; block.Text=Translate(value); }
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     static extern bool DestroyIcon(IntPtr handle);
 
@@ -43,7 +43,7 @@ public sealed partial class QcyTray
         SetupQcy();
         Get<Button>("HidePanel").Click+=delegate { window.Hide(); };
         window.MouseLeftButtonDown+=delegate(object sender,MouseButtonEventArgs e) {
-            if(e.OriginalSource is TextBlock && e.GetPosition(window).Y<55) window.DragMove();
+            if(e.OriginalSource is TextBlock && e.GetPosition(window).Y<55 && e.GetPosition(window).X<230) window.DragMove();
         };
         window.KeyDown+=delegate(object sender,KeyEventArgs e) {
             if(e.Key==Key.Escape) window.Hide();
@@ -59,6 +59,7 @@ public sealed partial class QcyTray
         menu.Items.Add("Sair",null,delegate { Exit(); });
         tray.ContextMenuStrip=menu;
         tray.MouseClick+=delegate(object sender,Forms.MouseEventArgs e) { if(e.Button==Forms.MouseButtons.Left) ShowPanel(); };
+        SetupLanguage();
         app.Exit+=delegate { tray.Visible=false; tray.Dispose(); menu.Dispose(); icon.Dispose(); };
     }
 
@@ -83,9 +84,10 @@ public sealed partial class QcyTray
             if(!first) return 0;
             var application=new Application { ShutdownMode=ShutdownMode.OnExplicitShutdown };
             var controller=new QcyTray(application);
-            if(args.Length==2 && args[0]=="--capture") {
+            if(args.Length>=2 && args[0]=="--capture") {
+                controller.persistLanguage=false; if(args.Length>2) controller.Get<ComboBox>("LanguagePicker").SelectedIndex=args[2]=="EN"?1:0;
                 controller.window.Show(); controller.window.UpdateLayout();
-                var image=new System.Windows.Media.Imaging.RenderTargetBitmap(300,408,96,96,System.Windows.Media.PixelFormats.Pbgra32);
+                var image=new System.Windows.Media.Imaging.RenderTargetBitmap(360,408,96,96,System.Windows.Media.PixelFormats.Pbgra32);
                 image.Render(controller.window);
                 var encoder=new System.Windows.Media.Imaging.PngBitmapEncoder();
                 encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(image));

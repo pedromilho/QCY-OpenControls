@@ -81,7 +81,7 @@ public sealed partial class QcyTray
                 for(int i=0;i<names.Length;i++) {
                     Get<TextBlock>(names[i]+"Mark").Visibility=actual!=null && actual[0]==i+1?Visibility.Visible:Visibility.Hidden;
                 }
-                tray.Text=actual==null?"QCY OpenControls · Indisponível":"QCY OpenControls · "+QcyConnection.ModeName(actual);
+                trayStatus=actual==null?"Indisponível":QcyConnection.ModeName(actual); UpdateTrayText();
             }));
         });
     }
