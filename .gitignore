@@ -1,0 +1,10 @@
+*.exe
+*.dll
+*.pdb
+*.user
+.vs/
+dist/
+test-output/
+session.txt
+modes.txt
+controls.txt

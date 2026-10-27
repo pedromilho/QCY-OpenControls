@@ -1,0 +1,81 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="QCY Controls" Width="300" Height="408" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" FontFamily="Segoe UI" Foreground="#F5F5F5" ShowInTaskbar="False"><Window.Resources>
+  <Style TargetType="Button">
+   <Setter Property="Cursor" Value="Hand"/><Setter Property="Foreground" Value="#DFDFDF"/><Setter Property="Background" Value="#12FFFFFF"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="12,7"/><Setter Property="FontSize" Value="12"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="Surface" Background="{TemplateBinding Background}" CornerRadius="12" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Surface" Property="Background" Value="#30FFFFFF"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter TargetName="Surface" Property="Opacity" Value="0.4"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="MediaControl" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+   <Setter Property="Foreground" Value="#E5E5E5"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+    <Border Background="Transparent" Padding="{TemplateBinding Padding}"><ContentPresenter x:Name="Icon" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"><ContentPresenter.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></ContentPresenter.RenderTransform></ContentPresenter></Border>
+    <ControlTemplate.Triggers>
+     <Trigger Property="IsMouseOver" Value="True"><Setter Property="Foreground" Value="#BDBDBD"/></Trigger>
+     
+     <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Icon" Property="Opacity" Value="0.4"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="DeviceSlider" TargetType="Slider">
+   <Setter Property="Minimum" Value="0"/><Setter Property="Maximum" Value="100"/><Setter Property="Orientation" Value="Vertical"/><Setter Property="Focusable" Value="True"/><Setter Property="Cursor" Value="Arrow"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Slider"><Border x:Name="SliderSurface" Background="Transparent" CornerRadius="36"/></ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="PositionTile" TargetType="RadioButton">
+   <Setter Property="Cursor" Value="Hand"/><Setter Property="Foreground" Value="#B8B8B8"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="RadioButton">
+    <Border x:Name="Tile" CornerRadius="19" Background="#141414" BorderBrush="Transparent" BorderThickness="1" Padding="5,12"><ContentPresenter HorizontalAlignment="Center"/></Border>
+    <ControlTemplate.Triggers>
+     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Tile" Property="Background" Value="#20FFFFFF"/></Trigger>
+     <Trigger Property="IsChecked" Value="True"><Setter TargetName="Tile" Property="Background" Value="#242424"/><Setter TargetName="Tile" Property="BorderBrush" Value="#666666"/><Setter Property="Foreground" Value="#F5F5F5"/></Trigger>
+     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Tile" Property="BorderBrush" Value="White"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="Switch" TargetType="CheckBox">
+   <Setter Property="Cursor" Value="Hand"/><Setter Property="VerticalAlignment" Value="Center"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="CheckBox">
+    <Border x:Name="Track" Width="40" Height="24" CornerRadius="12" Background="#515151" BorderBrush="Transparent" BorderThickness="1">
+     <Ellipse x:Name="Thumb" Width="18" Height="18" Fill="#F6F6F6" HorizontalAlignment="Left" Margin="2,0"/>
+    </Border>
+    <ControlTemplate.Triggers>
+     <Trigger Property="IsChecked" Value="True"><Setter TargetName="Track" Property="Background" Value="#C5C5C5"/><Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right"/></Trigger>
+     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Track" Property="BorderBrush" Value="White"/></Trigger>
+     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Track" Property="Opacity" Value="0.8"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+ </Window.Resources><Border Background="#FF242426" CornerRadius="19" BorderBrush="#44FFFFFF" BorderThickness="1" Padding="10"><Grid><Grid Height="40" VerticalAlignment="Top"><TextBlock Text="QCY Controls" FontSize="17" FontWeight="SemiBold" VerticalAlignment="Center" Margin="8,0"/><Button x:Name="HidePanel" Content="×" HorizontalAlignment="Right" ToolTip="Recolher para a bandeja"/></Grid><Border x:Name="QcyPanel" Width="276" Height="326" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="19" Background="#FF242426" BorderBrush="#22FFFFFF" BorderThickness="1" Padding="7" RenderTransformOrigin="0,0">
+    <Grid x:Name="QcyContent"><Grid.RowDefinitions><RowDefinition Height="24"/><RowDefinition Height="*"/><RowDefinition Height="1"/><RowDefinition Height="30"/></Grid.RowDefinitions>
+     <TextBlock x:Name="QcyStatus" Visibility="Hidden" Grid.Row="0" FontSize="11" Foreground="#B8B8BE" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="7,0" VerticalAlignment="Center" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel>
+      <StackPanel x:Name="QcyModes" IsEnabled="False">
+       <Button x:Name="QcyNormal" FontSize="12" Background="Transparent" Padding="4,6" AutomationProperties.Name="ANC off"><Grid Width="170"><Grid.ColumnDefinitions><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><TextBlock x:Name="QcyNormalMark" Text="✓" Visibility="Hidden"/><TextBlock Grid.Column="1" Text="ANC off" TextTrimming="CharacterEllipsis"/></Grid></Button>
+       <Button x:Name="QcyTransparent" FontSize="12" Background="Transparent" Padding="4,6" AutomationProperties.Name="Ambient sound"><Grid Width="170"><Grid.ColumnDefinitions><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><TextBlock x:Name="QcyTransparentMark" Text="✓" Visibility="Hidden"/><TextBlock Grid.Column="1" Text="Ambient sound" TextTrimming="CharacterEllipsis"/></Grid></Button>
+       <Button x:Name="QcyAnc" FontSize="12" Background="Transparent" Padding="4,6" AutomationProperties.Name="ANC on"><Grid Width="170"><Grid.ColumnDefinitions><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><TextBlock x:Name="QcyAncMark" Text="✓" Visibility="Hidden"/><TextBlock Grid.Column="1" Text="ANC on" TextTrimming="CharacterEllipsis"/></Grid></Button>
+      </StackPanel>
+      <StackPanel x:Name="QcyExtra" IsEnabled="False" Margin="9,4,9,0">
+       <Border Height="1" Background="#18FFFFFF" Margin="0,0,0,6"/>
+       <Grid Height="32"><TextBlock Text="Game mode" FontSize="12" VerticalAlignment="Center"/><CheckBox x:Name="QcyGame" Style="{StaticResource Switch}" HorizontalAlignment="Right" AutomationProperties.Name="Game mode"/></Grid>
+       <Grid Margin="0,6,0,0"><TextBlock Text="Balanço L/R" FontSize="11" Foreground="#B8B8BE"/><TextBlock x:Name="QcyBalanceValue" Text="Centro" FontSize="10" Foreground="#B8B8BE" HorizontalAlignment="Right"/></Grid>
+       <Grid Margin="0,3,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/></Grid.ColumnDefinitions>
+        <TextBlock Text="L" FontSize="10" VerticalAlignment="Center"/>
+        <Slider x:Name="QcyBalance" Grid.Column="1" Minimum="0" Maximum="100" Value="50" TickFrequency="1" IsSnapToTickEnabled="True" SmallChange="1" LargeChange="10" Height="24" AutomationProperties.Name="Balanço esquerdo e direito">
+         <Slider.Template><ControlTemplate TargetType="Slider"><Grid Background="Transparent" Margin="5,0">
+          <Border Height="3" CornerRadius="1.5" Background="#555555" VerticalAlignment="Center"/>
+          <Border Width="1" Height="9" Background="#888888" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          <Track x:Name="PART_Track" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" Value="{TemplateBinding Value}" Orientation="Horizontal">
+           <Track.DecreaseRepeatButton><RepeatButton Command="Slider.DecreaseLarge" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>
+           <Track.Thumb><Thumb Width="12" Height="12"><Thumb.Template><ControlTemplate TargetType="Thumb"><Ellipse Fill="#EEEEEE"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+           <Track.IncreaseRepeatButton><RepeatButton Command="Slider.IncreaseLarge" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>
+          </Track>
+         </Grid></ControlTemplate></Slider.Template>
+        </Slider>
+        <TextBlock Grid.Column="2" Text="R" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+       </Grid>
+       <Button x:Name="QcyBalanceReset" Content="Centralizar" FontSize="10" Background="Transparent" Padding="4,3" HorizontalAlignment="Center"/>
+      </StackPanel>
+      </StackPanel>
+     </ScrollViewer>
+     <Border Grid.Row="2" Background="#18FFFFFF" Margin="7,0"/>
+     <Button x:Name="QcyRefresh" Grid.Row="3" Content="Atualizar" FontSize="12" Background="Transparent" Padding="8,6"/>
+    </Grid>
+   </Border></Grid></Border></Window>
